@@ -1,9 +1,9 @@
 import * as S from "./styles";
 
-export function Dashboard() {
+export function HomeHeader() {
   return (
     <S.Container>
-      <h1>Dashboard</h1>
+      <h1>HomeHeader</h1>
     </S.Container>
   );
 }

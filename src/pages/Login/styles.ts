@@ -16,6 +16,17 @@ export const ContainerLeft = styled.div`
   color: ${(props) => props.theme.secondary};
 `;
 export const TitleContainer = styled.div``;
+export const Form = styled.form`
+  min-width: 300px;
+  margin-top: 135px;
+  h2 {
+    font-weight: 400;
+    font-size: 1.875rem;
+    line-height: 38px;
+    margin-bottom: 32px;
+    color: ${(props) => props.theme.secondary};
+  }
+`;
 export const Title = styled.h1`
   font-weight: 400;
   font-size: 3.75rem;

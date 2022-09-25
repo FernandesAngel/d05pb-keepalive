@@ -3,6 +3,7 @@ export const defaultTheme = {
   darkText: "#222222",
 
   primaryOrange: "#C12D18",
+  secondaryOrange: "#FF2D04",
   secondary: "#E0E0E0",
 
   gradientDarkFirst: "#33383D",
