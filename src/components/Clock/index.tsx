@@ -4,7 +4,7 @@ import * as S from "./styles";
 export function Clock() {
   const [dateNow, setDateNow] = useState(new Date());
   useEffect(() => {
-    setInterval(() => setDateNow(new Date()), 100000);
+    setInterval(() => setDateNow(new Date()), 60000);
   }, []);
   return (
     <S.Container>

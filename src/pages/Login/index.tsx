@@ -2,15 +2,23 @@ import * as S from "./styles";
 import logoCompass from "../../assets/logoCompass.png";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function Login() {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const regEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     event.preventDefault();
-    console.log("ta indo");
-    navigate("/home");
+    if (password.length >= 6 && regEmail.test(user)) {
+      navigate("/home");
+      console.log("dentro", user, password);
+      setError(false);
+    }
+    setError(true);
   }
 
   return (
@@ -24,8 +32,27 @@ export function Login() {
         </S.TitleContainer>
         <S.Form onSubmit={handleSubmit}>
           <h2>Login</h2>
-          <Input variant="user" label="Usuário" type="text" />
-          <Input variant="password" label="Senha" type="password" />
+          <Input
+            variant="user"
+            label="Usuário"
+            type="text"
+            value={user}
+            onChange={(event) => setUser(event.target.value)}
+            error={error}
+          />
+          <Input
+            variant="password"
+            label="Senha"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            error={error}
+          />
+          <S.ErrorMessageContainer>
+            <S.ErrorMessage error={error}>
+              Ops, usuário ou senha inválidos. <br /> Tente novamente!
+            </S.ErrorMessage>
+          </S.ErrorMessageContainer>
           <Button type="submit">Continuar</Button>
         </S.Form>
       </S.ContainerLeft>

@@ -14,6 +14,6 @@ export const Container = styled.div`
     line-height: 23px;
     box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
     filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.5));
-    margin-top: 80px;
+    margin-top: 47px;
   }
 `;

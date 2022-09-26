@@ -16,6 +16,24 @@ export const ContainerLeft = styled.div`
   color: ${(props) => props.theme.secondary};
 `;
 export const TitleContainer = styled.div``;
+export const ErrorMessageContainer = styled.div`
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+interface ErrorProps {
+  error: boolean;
+}
+export const ErrorMessage = styled.p<ErrorProps>`
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  display: ${(props) => (props.error ? "initial" : "none")};
+  color: ${(props) => props.theme.warnText};
+`;
 export const Form = styled.form`
   min-width: 300px;
   margin-top: 135px;

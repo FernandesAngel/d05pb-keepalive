@@ -1,8 +1,11 @@
 import styled from "styled-components";
-
-export const Container = styled.div`
+interface InputProps {
+  error: boolean;
+}
+export const Container = styled.div<InputProps>`
   width: 100%;
-  border: 1px solid white;
+  border: 1px solid
+    ${(props) => (props.error ? props.theme.warnText : props.theme.primaryText)};
   padding: 5px;
   border-radius: 50px;
   width: 100%;

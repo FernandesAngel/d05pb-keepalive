@@ -6,11 +6,12 @@ import { InputHTMLAttributes, useState } from "react";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   variant?: "user" | "password";
+  error: boolean;
 }
-export function Input({ label, variant = "user", ...rest }: InputProps) {
+export function Input({ label, error, variant = "user", ...rest }: InputProps) {
   const [focused, setFocused] = useState(false);
   return (
-    <S.Container>
+    <S.Container error={error}>
       <input
         placeholder={label}
         onFocus={() => setFocused(true)}
