@@ -4,11 +4,11 @@ import loginBackground from "../../assets/loginBackground.png";
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
+  background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
   height: 100vh;
 `;
 export const ContainerLeft = styled.div`
   width: 50%;
-  background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
   display: flex;
   align-items: center;
   justify-content: center;
