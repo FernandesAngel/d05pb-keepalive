@@ -9,4 +9,24 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Mark Pro', sans-serif;
   }
+  @media(max-width: 1786px){
+    html {
+      font-size: 90.75%;
+    }
+  }
+  @media(max-width: 1366px){
+    html {
+      font-size: 76.75%;
+    }
+  }
+  @media(max-width: 1080px){
+    html {
+      font-size: 70.75%;
+    }
+  }
+  @media(max-width: 720px){
+    html {
+      font-size: 65.5%;
+    }
+  }
 `;

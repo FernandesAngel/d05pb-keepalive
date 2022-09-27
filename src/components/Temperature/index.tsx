@@ -17,10 +17,13 @@ export function Temperature() {
           setLong(position.coords.longitude);
         });
       } catch (error) {
+        setLat(-15.793889);
+        setLong(-47.892967);
         console.log("deu errado", error);
       }
     } else {
-      console.log("ERRO");
+      setLat(-15.793889);
+      setLong(-47.892967);
     }
   }
 

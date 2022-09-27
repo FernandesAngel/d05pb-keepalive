@@ -15,4 +15,5 @@ export const DayText = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  margin-top: 5px;
 `;

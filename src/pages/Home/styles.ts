@@ -5,24 +5,26 @@ export const Container = styled.div`
   background-image: url(${logoCompassBall});
   background-repeat: no-repeat;
   background-size: 30%;
-  background-position-x: -10px;
+  background-position-x: -1rem;
   background-position-y: 85%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (min-width: 2000px) {
+    background-size: 28%;
+  }
 `;
 export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  height: 100%;
 `;
 
 export const ContentRight = styled.div`
   width: 100%;
   text-align: end;
-  padding: 140px 135px 260px 0;
+  padding: 8.75rem 8.438rem 13.2rem 0;
 `;
 
 export const MainTextTop = styled.h1`
