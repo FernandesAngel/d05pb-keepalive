@@ -15,7 +15,6 @@ export function Login() {
     event.preventDefault();
     if (password.length >= 6 && regEmail.test(user)) {
       navigate("/home");
-      console.log("dentro", user, password);
       setError(false);
     }
     setError(true);

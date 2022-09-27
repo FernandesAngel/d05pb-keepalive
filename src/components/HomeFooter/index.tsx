@@ -26,7 +26,7 @@ export function Footer() {
             <S.TimerLabel>
               Application <br /> refresh in
             </S.TimerLabel>
-            <Timer />
+            <Timer time={100} />
           </S.TimerContainer>
           <S.Navigation>
             <S.NavigateButton href="https://www.google.com" target="_blank">

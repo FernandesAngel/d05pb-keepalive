@@ -15,13 +15,12 @@ export function Temperature() {
         navigator.geolocation.getCurrentPosition((position) => {
           setLat(position.coords.latitude);
           setLong(position.coords.longitude);
-          console.log("uhu", position);
         });
       } catch (error) {
         console.log("deu errado", error);
       }
     } else {
-      console.log("nao pega");
+      console.log("ERRO");
     }
   }
 
@@ -39,7 +38,7 @@ lat=${lat}&lon=${long}&appid=${API_KEY}&units=metric`);
       }
     }
     getWeather();
-  }, []);
+  }, [lat, long]);
 
   return (
     <S.Container>
