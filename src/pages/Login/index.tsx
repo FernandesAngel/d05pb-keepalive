@@ -3,18 +3,19 @@ import logoCompass from "../../assets/logoCompass.png";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
 
 export function Login() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
+  const { signIn, authError } = useAuth();
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const regEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     event.preventDefault();
     if (password.length >= 6 && regEmail.test(user)) {
-      navigate("/home");
+      signIn({ email: user, password });
       setError(false);
     }
     setError(true);
@@ -48,7 +49,7 @@ export function Login() {
             error={error}
           />
           <S.ErrorMessageContainer>
-            <S.ErrorMessage error={error}>
+            <S.ErrorMessage error={error || authError}>
               Ops, usuário ou senha inválidos. <br /> Tente novamente!
             </S.ErrorMessage>
           </S.ErrorMessageContainer>

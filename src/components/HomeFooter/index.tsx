@@ -1,15 +1,16 @@
 import { MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
 import { Timer } from "../Timer";
 import * as S from "./styles";
 
 export function Footer() {
-  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
   function handleLogout(
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) {
     event.preventDefault();
-    navigate("/");
+    signOut();
   }
   return (
     <S.Container>
@@ -26,7 +27,7 @@ export function Footer() {
             <S.TimerLabel>
               Application <br /> refresh in
             </S.TimerLabel>
-            <Timer time={100} />
+            <Timer time={Number(import.meta.env.VITE_TIMER)} />
           </S.TimerContainer>
           <S.Navigation>
             <S.NavigateButton href="https://www.google.com" target="_blank">

@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
 import * as S from "./styles";
 
 interface TimerProps {
   time: number;
 }
 export function Timer({ time }: TimerProps) {
-  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [timer, setTimer] = useState(time);
 
   useEffect(() => {
     const interval = setInterval(() => setTimer(timer - 1), 1000);
     if (timer === 0) {
-      navigate("/");
+      signOut();
     }
 
     return () => clearTimeout(interval);
-  }, [timer, navigate]);
+  }, [timer, signOut]);
 
   return (
     <S.Container>

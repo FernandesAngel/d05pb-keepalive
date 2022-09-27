@@ -2,10 +2,9 @@ import * as S from "./styles";
 import { WiDayCloudyGusts } from "react-icons/wi";
 import { useEffect, useState } from "react";
 
-const API_KEY = "3f15710155988010a5aa24b3fc168728";
 export function Temperature() {
-  const [lat, setLat] = useState(0);
-  const [long, setLong] = useState(0);
+  const [lat, setLat] = useState(-15.793889);
+  const [long, setLong] = useState(-47.892967);
   const [temp, setTemp] = useState(0);
   const [local, setLocal] = useState("");
 
@@ -17,13 +16,8 @@ export function Temperature() {
           setLong(position.coords.longitude);
         });
       } catch (error) {
-        setLat(-15.793889);
-        setLong(-47.892967);
         console.log("deu errado", error);
       }
-    } else {
-      setLat(-15.793889);
-      setLong(-47.892967);
     }
   }
 
@@ -32,7 +26,9 @@ export function Temperature() {
     async function getWeather() {
       try {
         const apiCall = await fetch(`//api.openweathermap.org/data/2.5/weather?
-lat=${lat}&lon=${long}&appid=${API_KEY}&units=metric`);
+lat=${lat}&lon=${long}&appid=${
+          import.meta.env.VITE_WEATHER_API_KEY
+        }&units=metric`);
         const data = await apiCall.json();
         setLocal(data.name);
         setTemp(data.main.temp.toFixed(0));
