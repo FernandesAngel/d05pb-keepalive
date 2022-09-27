@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import logoCompass from "../../assets/logoCompassDark.png";
 import { Clock } from "../Clock";
+import { Temperature } from "../Temperature";
 export function HomeHeader() {
   return (
     <S.Container>
@@ -10,7 +11,9 @@ export function HomeHeader() {
       <S.ClockContainer>
         <Clock />
       </S.ClockContainer>
-      <S.TempContainer>hmm</S.TempContainer>
+      <S.TempContainer>
+        <Temperature />
+      </S.TempContainer>
     </S.Container>
   );
 }

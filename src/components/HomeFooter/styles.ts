@@ -54,6 +54,7 @@ export const TimerLabel = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
+  margin-right: 33px;
 `;
 export const Navigation = styled.div`
   display: flex;

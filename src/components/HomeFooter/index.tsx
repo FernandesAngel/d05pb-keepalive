@@ -1,5 +1,6 @@
 import { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { Timer } from "../Timer";
 import * as S from "./styles";
 
 export function Footer() {
@@ -25,6 +26,7 @@ export function Footer() {
             <S.TimerLabel>
               Application <br /> refresh in
             </S.TimerLabel>
+            <Timer />
           </S.TimerContainer>
           <S.Navigation>
             <S.NavigateButton href="https://www.google.com" target="_blank">
