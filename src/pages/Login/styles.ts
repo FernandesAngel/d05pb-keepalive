@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import loginBackground from "../../assets/loginBackground.png";
+import logoCompass from "../../assets/logoCompass.png";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
   height: 100vh;
+  width: 100%;
+  @media (max-height: 775px) {
+    height: auto;
+  }
 `;
 export const ContainerLeft = styled.div`
   width: 50%;
@@ -14,6 +19,35 @@ export const ContainerLeft = styled.div`
   justify-content: center;
   flex-direction: column;
   color: ${(props) => props.theme.secondary};
+  @media (max-width: 920px) {
+    width: 100%;
+    background-image: url(${logoCompass});
+    background-repeat: no-repeat;
+    background-size: 200px;
+    background-position-x: 25px;
+    background-position-y: 25px;
+  }
+
+  @media (max-height: 775px) {
+    padding: 20% 0;
+  }
+
+  @media (max-width: 420px) {
+    width: 75%;
+    margin: 0 10%;
+    background-position-x: center;
+    background-position-y: 25px;
+  }
+  @media (max-width: 375px) {
+    align-items: flex-start;
+    background-position-x: center;
+    background-position-y: 25px;
+    background-size: 150px;
+  }
+  @media (max-width: 320px) {
+    margin: 0 7%;
+    background-size: 120px;
+  }
 `;
 export const TitleContainer = styled.div``;
 export const ErrorMessageContainer = styled.div`
@@ -44,6 +78,11 @@ export const Form = styled.form`
     margin-bottom: 32px;
     color: ${(props) => props.theme.secondary};
   }
+  @media (max-width: 375px) {
+    min-width: 0;
+    width: 100%;
+    margin-top: 50px;
+  }
 `;
 export const Title = styled.h1`
   font-weight: 400;
@@ -67,5 +106,9 @@ export const ContainerRight = styled.div`
   img {
     width: 306px;
     height: 69px;
+  }
+
+  @media (max-width: 920px) {
+    display: none;
   }
 `;

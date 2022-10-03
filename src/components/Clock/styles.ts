@@ -7,9 +7,13 @@ export const Container = styled.div`
 `;
 export const ClockText = styled.h3`
   font-weight: 700;
-  font-size: 144px;
-  line-height: 9rem;
+  line-height: 144px;
+  font-size: 9rem;
   text-align: center;
+  @media (max-width: 1024px) {
+    font-size: 8rem;
+    line-height: 100px;
+  }
 `;
 export const DayText = styled.p`
   font-weight: 400;

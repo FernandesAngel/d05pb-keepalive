@@ -29,16 +29,16 @@ export function Footer() {
             </S.TimerLabel>
             <Timer time={Number(import.meta.env.VITE_TIMER)} />
           </S.TimerContainer>
-          <S.Navigation>
-            <S.NavigateButton href="https://www.google.com" target="_blank">
-              Continuar <br /> Navegando
-            </S.NavigateButton>
-            <S.LogoutButton onClick={(event) => handleLogout(event)}>
-              Logout
-            </S.LogoutButton>
-          </S.Navigation>
         </S.ContentRight>
       </S.Content>
+      <S.Navigation>
+        <S.NavigateButton href="https://www.google.com" target="_blank">
+          Continuar <br /> Navegando
+        </S.NavigateButton>
+        <S.LogoutButton onClick={(event) => handleLogout(event)}>
+          Logout
+        </S.LogoutButton>
+      </S.Navigation>
     </S.Container>
   );
 }
