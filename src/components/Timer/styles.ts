@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 100px;
+  min-width: 100px;
 `;
 export const Number = styled.h4`
   font-weight: 700;

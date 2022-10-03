@@ -3,8 +3,11 @@ import styled from "styled-components";
 export const Container = styled.div``;
 export const Local = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 18px;
+  @media (max-width: 375px) {
+    line-height: 16px;
+  }
 `;
 export const Temperature = styled.div`
   display: flex;
@@ -13,7 +16,10 @@ export const Temperature = styled.div`
 `;
 export const TemperatureText = styled.p`
   font-weight: 700;
-  font-size: 48px;
+  font-size: 3rem;
   line-height: 61px;
   margin-left: 10px;
+  @media (max-width: 375px) {
+    line-height: 50px;
+  }
 `;

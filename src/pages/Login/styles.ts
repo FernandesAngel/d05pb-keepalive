@@ -8,7 +8,7 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
   height: 100vh;
   width: 100%;
-  @media (max-height: 775px) {
+  @media (max-height: 720px) {
     height: auto;
   }
 `;
@@ -43,6 +43,7 @@ export const ContainerLeft = styled.div`
     background-position-x: center;
     background-position-y: 25px;
     background-size: 150px;
+    width: 100%;
   }
   @media (max-width: 320px) {
     margin: 0 7%;
@@ -88,6 +89,12 @@ export const Title = styled.h1`
   font-weight: 400;
   font-size: 3.75rem;
   line-height: 76px;
+  @media (max-width: 920px) {
+    margin-top: 50px;
+  }
+  @media (max-width: 375px) {
+    margin-top: 20px;
+  }
 `;
 export const Description = styled.p`
   font-weight: 400;

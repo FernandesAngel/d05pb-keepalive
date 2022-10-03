@@ -35,6 +35,10 @@ export const Icon = styled.div<IconProps>`
   width: 15%;
   transition: 0.5s transform;
 
+  @media (max-width: 375px) {
+    transform: translate(0);
+  }
+
   ${(props) =>
     props.focused ? "transform: translate(0)" : "transform: translate(50px, 0)"}
 `;

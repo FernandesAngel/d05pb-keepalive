@@ -34,8 +34,13 @@ export const ContentRight = styled.div`
   }
   @media (max-width: 1024px) {
     text-align: center;
-    padding-right: 0;
-    padding-top: 12rem;
+    padding: 14rem 0 13.5rem 0;
+  }
+  @media (max-width: 768px) {
+    padding: 11rem 0.75rem;
+  }
+  @media (max-width: 375px) {
+    padding: 3rem 0.7rem 5rem;
   }
 `;
 
@@ -47,6 +52,18 @@ export const MainTextTop = styled.h1`
   @media (max-width: 1360px) {
     font-size: 2rem;
   }
+  @media (max-width: 768px) {
+    font-size: 1.85rem;
+    line-height: 36px;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.6rem;
+    line-height: 30px;
+  }
+  @media (max-width: 375px) {
+    font-size: 1.3rem;
+    line-height: 27px;
+  }
 `;
 export const MainText = styled.h2`
   font-weight: 700;
@@ -56,6 +73,18 @@ export const MainText = styled.h2`
   @media (max-width: 1360px) {
     font-size: 3.25rem;
   }
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    line-height: 60px;
+  }
+  @media (max-width: 575px) {
+    font-size: 2.6rem;
+    line-height: 45px;
+  }
+  @media (max-width: 375px) {
+    font-size: 2rem;
+    line-height: 35px;
+  }
 `;
 export const SubText = styled.p`
   font-weight: 400;
@@ -64,5 +93,17 @@ export const SubText = styled.p`
   color: ${(props) => props.theme.darkText};
   @media (max-width: 1360px) {
     font-size: 1.7rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    line-height: 15px;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.05rem;
+    line-height: 23px;
+  }
+  @media (max-width: 575px) {
+    font-size: 1rem;
+    line-height: 20px;
   }
 `;

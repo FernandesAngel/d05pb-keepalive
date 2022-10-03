@@ -37,8 +37,9 @@ export const ContentLeft = styled.div`
     line-height: 15px;
     text-align: right;
     margin-right: 35px;
-
-    @media (max-width: 1024px) {
+  }
+  @media (max-width: 1024px) {
+    p {
       font-size: 0.9rem;
       margin: 0 30px;
       br {
@@ -54,6 +55,12 @@ export const ContentLeft = styled.div`
       border-bottom: 1px solid ${(props) => props.theme.primaryText};
       text-align: center;
       padding: 0 10% 20px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    p {
+      padding: 0 0 20px;
     }
   }
 `;
@@ -93,6 +100,9 @@ export const Navigation = styled.div`
   display: flex;
   @media (max-width: 920px) {
     width: 100%;
+    flex-direction: row;
+  }
+  @media (max-width: 420px) {
     flex-direction: column;
   }
 `;
@@ -112,6 +122,12 @@ export const LogoutButton = styled.button`
   }
   @media (max-width: 920px) {
     width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 420px) {
     height: 70px;
   }
 `;
@@ -132,6 +148,6 @@ export const NavigateButton = styled.a`
   }
   @media (max-width: 920px) {
     width: 100%;
-    height: 130px;
+    height: 110px;
   }
 `;
