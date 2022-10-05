@@ -33,14 +33,14 @@ export const ContentRight = styled.div`
     padding: 10rem 4.5rem 14rem 0;
   }
   @media (max-width: 1024px) {
-    text-align: center;
-    padding: 14rem 0 13.5rem 0;
+    /* text-align: center; */
+    padding: 14rem 2.3rem 13.5rem 0;
   }
   @media (max-width: 768px) {
-    padding: 11rem 0.75rem;
+    padding: 11rem 1.5rem;
   }
   @media (max-width: 375px) {
-    padding: 3rem 0.7rem 5rem;
+    padding: 3rem 1.8rem 5rem;
   }
 `;
 

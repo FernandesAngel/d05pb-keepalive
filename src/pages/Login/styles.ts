@@ -8,7 +8,7 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
   height: 100vh;
   width: 100%;
-  @media (max-height: 720px) {
+  @media (max-height: 650px) {
     height: auto;
   }
 `;

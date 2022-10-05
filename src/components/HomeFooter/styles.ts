@@ -95,6 +95,9 @@ export const TimerLabel = styled.p`
     font-size: 1rem;
     margin-right: 50px;
   }
+  @media (max-width: 320px) {
+    margin-right: 25px;
+  }
 `;
 export const Navigation = styled.div`
   display: flex;
