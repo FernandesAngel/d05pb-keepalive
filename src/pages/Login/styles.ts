@@ -24,7 +24,7 @@ export const ContainerLeft = styled.div`
     background-image: url(${logoCompass});
     background-repeat: no-repeat;
     background-size: 200px;
-    background-position-x: 25px;
+    background-position-x: center;
     background-position-y: 25px;
   }
 
