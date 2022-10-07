@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
+import { SignUp } from "../pages/SignUp";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { PublicRoutes } from "./PublicRoutes";
 
@@ -15,6 +16,7 @@ export function Router() {
         element={<PublicRoutes isLogged={isLogged && isLogged !== undefined} />}
       >
         <Route index element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Route>
       <Route
         path="/home"

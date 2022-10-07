@@ -4,12 +4,18 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { FormEvent, useState } from "react";
 import { useAuth } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
+  const navigate = useNavigate();
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const { signIn, authError } = useAuth();
+
+  function handleNavigation() {
+    navigate("/signup");
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const regEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
@@ -53,8 +59,13 @@ export function Login() {
               Ops, usuário ou senha inválidos. <br /> Tente novamente!
             </S.ErrorMessage>
           </S.ErrorMessageContainer>
-          <Button type="submit">Continuar</Button>
+          <S.FormButtonContainer>
+            <Button type="submit">Continuar</Button>
+          </S.FormButtonContainer>
         </S.Form>
+        <S.SignUpButton onClick={handleNavigation}>
+          Ainda não tem uma conta? Cadastre-se
+        </S.SignUpButton>
       </S.ContainerLeft>
       <S.ContainerRight>
         <img src={logoCompass} alt="" />

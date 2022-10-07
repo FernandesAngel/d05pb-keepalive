@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   background: linear-gradient(180deg, #33383d 0%, #1c1d20 100%);
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   @media (max-height: 650px) {
     height: auto;
@@ -19,6 +19,7 @@ export const ContainerLeft = styled.div`
   justify-content: center;
   flex-direction: column;
   color: ${(props) => props.theme.secondary};
+  padding: 50px 0;
   @media (max-width: 920px) {
     width: 100%;
     background-image: url(${logoCompass});
@@ -51,6 +52,11 @@ export const ContainerLeft = styled.div`
   }
 `;
 export const TitleContainer = styled.div``;
+
+export const PasswordReqContainer = styled.div`
+  width: 100%;
+  margin-top: 5px;
+`;
 export const ErrorMessageContainer = styled.div`
   height: 30px;
   display: flex;
@@ -69,18 +75,9 @@ export const ErrorMessage = styled.p<ErrorProps>`
   display: ${(props) => (props.error ? "initial" : "none")};
   color: ${(props) => props.theme.warnText};
 `;
-export const SignUpButton = styled.a`
-  font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 20px;
-  text-align: center;
-  color: ${(props) => props.theme.secondary};
-  margin-top: 20px;
-  cursor: pointer;
-`;
 export const Form = styled.form`
   min-width: 300px;
-  margin-top: 135px;
+  margin-top: 70px;
   h2 {
     font-weight: 400;
     font-size: 1.875rem;
@@ -92,18 +89,6 @@ export const Form = styled.form`
     min-width: 0;
     width: 100%;
     margin-top: 50px;
-  }
-`;
-
-export const FormButtonContainer = styled.div`
-  width: 100%;
-
-  @media (max-width: 920px) {
-    width: 110%;
-  }
-
-  @media (max-width: 375px) {
-    width: 100%;
   }
 `;
 export const Title = styled.h1`
@@ -140,3 +125,11 @@ export const ContainerRight = styled.div`
     display: none;
   }
 `;
+
+// export const ErrorMessage = styled.p`
+//   height: 20px;
+//   margin: 3px 0 10px;
+//   padding: 0 20px;
+//   color: ${(props) => props.theme.warnText};
+//   font-size: 0.75rem;
+// `;

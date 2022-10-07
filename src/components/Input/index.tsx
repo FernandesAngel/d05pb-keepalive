@@ -5,10 +5,10 @@ import { InputHTMLAttributes, useState } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  variant?: "user" | "password";
+  variant?: "user" | "password" | null;
   error: boolean;
 }
-export function Input({ label, error, variant = "user", ...rest }: InputProps) {
+export function Input({ label, error, variant = null, ...rest }: InputProps) {
   const [focused, setFocused] = useState(false);
   return (
     <S.Container error={error}>
@@ -23,8 +23,10 @@ export function Input({ label, error, variant = "user", ...rest }: InputProps) {
       <S.Icon focused={focused}>
         {variant === "user" ? (
           <AiOutlineUser size={20} />
-        ) : (
+        ) : variant === "password" ? (
           <HiOutlineLockClosed size={20} />
+        ) : (
+          <div></div>
         )}
       </S.Icon>
     </S.Container>

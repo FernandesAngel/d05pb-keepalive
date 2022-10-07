@@ -15,12 +15,6 @@ export const Container = styled.div`
     box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15);
     filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.5));
     margin-top: 47px;
-  }
-
-  @media (max-width: 920px) {
-    width: 110%;
-  }
-  @media (max-width: 375px) {
-    width: 100%;
+    cursor: pointer;
   }
 `;
