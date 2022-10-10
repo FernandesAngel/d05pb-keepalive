@@ -40,8 +40,8 @@ export const ContentLeft = styled.div`
   }
   @media (max-width: 1024px) {
     p {
-      font-size: 0.9rem;
-      margin: 0 30px;
+      font-size: 0.7rem;
+      margin: 0 20px;
       br {
         display: none;
       }
@@ -51,6 +51,9 @@ export const ContentLeft = styled.div`
   @media (max-width: 920px) {
     margin: 0 auto 50px;
     border-right: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     p {
       border-bottom: 1px solid ${(props) => props.theme.primaryText};
       text-align: center;
@@ -64,17 +67,42 @@ export const ContentLeft = styled.div`
     }
   }
 `;
+
+export const WelcomeMessage = styled.h5`
+  width: 35%;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 15px;
+  padding-left: 20px;
+
+  @media (max-width: 1060px) {
+    font-size: 0.9rem;
+    width: 80%;
+  }
+  @media (max-width: 920px) {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+    padding-left: 0;
+  }
+`;
 export const ContentRight = styled.div`
   height: 100%;
-  width: 100%;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 35px;
+  margin-left: 30px;
+
+  @media (max-width: 1060px) {
+    width: 55%;
+  }
 
   @media (max-width: 920px) {
     margin: 0 auto 50px;
     padding: 0 20%;
+    width: 60%;
   }
 `;
 

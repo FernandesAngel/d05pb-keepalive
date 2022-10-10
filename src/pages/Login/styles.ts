@@ -63,7 +63,7 @@ interface ErrorProps {
 }
 export const ErrorMessage = styled.p<ErrorProps>`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 20px;
   text-align: center;
   display: ${(props) => (props.error ? "initial" : "none")};

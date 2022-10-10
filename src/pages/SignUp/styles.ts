@@ -64,16 +64,17 @@ export const ErrorMessageContainer = styled.div`
   justify-content: center;
 `;
 
-interface ErrorProps {
-  error: boolean;
-}
-export const ErrorMessage = styled.p<ErrorProps>`
+// interface ErrorProps {
+//   error: boolean;
+// }
+export const ErrorMessage = styled.p`
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 20px;
   text-align: center;
-  display: ${(props) => (props.error ? "initial" : "none")};
+  margin-top: 40px;
   color: ${(props) => props.theme.warnText};
+  max-width: 300px;
 `;
 export const Form = styled.form`
   min-width: 300px;
@@ -107,6 +108,16 @@ export const Description = styled.p`
   font-size: 1rem;
   line-height: 20px;
   max-width: 300px;
+`;
+
+export const GoBackButton = styled.a`
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 20px;
+  text-align: center;
+  color: ${(props) => props.theme.secondary};
+  margin-top: 20px;
+  cursor: pointer;
 `;
 export const ContainerRight = styled.div`
   width: 50%;

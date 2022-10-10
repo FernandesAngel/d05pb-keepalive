@@ -1,75 +1,79 @@
 import * as S from "./styles";
 import logoCompass from "../../assets/logoCompass.png";
 import { Button } from "../../components/Button";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { SimpleInput } from "../../components/SimpleInput";
 import { PasswordReq } from "../../components/PasswordReq";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
+import { useTestPassword } from "../../utils/passwordValidation";
 
 export function SignUp() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
+  const { signUp, signUpError } = useAuth();
+  const {
+    passwordLengthError,
+    passwordNumberError,
+    passwordUppercaseError,
+    passwordLowercaseError,
+    passwordSpecialCaractereError,
+  } = useTestPassword(password);
 
-  const [passwordLengthError, setPasswordLengthError] = useState(false);
-  const [passwordNumberError, setPasswordNumberError] = useState(false);
-  const [passwordUppercaseError, setPasswordUppercaseError] = useState(false);
-  const [passwordLowercaseError, setPasswordLowercaseError] = useState(false);
-  const [passwordSpecialCaractereError, setPasswordSpecialCaractereError] =
-    useState(false);
   // const {} = useAuth();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleGoBack() {
+    navigate("/");
+  }
+
+  function dataValidation() {
     const regEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    if (
+      passwordLengthError &&
+      passwordLowercaseError &&
+      passwordNumberError &&
+      passwordSpecialCaractereError &&
+      passwordUppercaseError
+    ) {
+      if (password !== passwordConfirmation) {
+        setError("As senhas devem ser iguais");
+      } else {
+        if (signUpError) {
+          setError(signUpError);
+        } else {
+          setError("");
+        }
+        setError("");
+      }
+    } else {
+      setError("Verifique se sua senha atende a todas especificações");
+    }
+    if (!regEmail.test(email)) {
+      setError("Email inválido");
+    }
+    console.log(error);
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (password.length >= 6 && regEmail.test(email)) {
-      // signIn({ email, password });
-      setError("false");
-    }
-    setError("true");
-  }
-
-  function testPassword(password: string) {
-    const specialCaractereRegex = /[^a-zA-Z 0-9]+/g;
-    const numberRegex = /\d/;
-    const lowercaseRegex = /[a-z]/;
-    const uppercaseRegex = /[A-Z]/;
-
-    if (password.length < 6) {
-      setPasswordLengthError(false);
-    } else {
-      setPasswordLengthError(true);
-    }
-
-    if (specialCaractereRegex.test(password)) {
-      setPasswordSpecialCaractereError(true);
-    } else {
-      setPasswordSpecialCaractereError(false);
-    }
-
-    if (numberRegex.test(password)) {
-      setPasswordNumberError(true);
-    } else {
-      setPasswordNumberError(false);
-    }
-
-    if (lowercaseRegex.test(password)) {
-      setPasswordLowercaseError(true);
-    } else {
-      setPasswordLowercaseError(false);
-    }
-
-    if (uppercaseRegex.test(password)) {
-      setPasswordUppercaseError(true);
-    } else {
-      setPasswordUppercaseError(false);
+    dataValidation();
+    if (error === "") {
+      try {
+        const userData = {
+          email,
+          password: passwordConfirmation,
+        };
+        await signUp(userData, { name, surname, email });
+      } catch (e) {
+        setError("Erro ao criar conta, tente novamente.");
+      }
     }
   }
-
-  useEffect(() => {
-    testPassword(password);
-  }, [password]);
 
   return (
     <S.Container>
@@ -83,18 +87,22 @@ export function SignUp() {
         <S.Form onSubmit={handleSubmit}>
           <h2>Cadastro</h2>
           <SimpleInput
-            label="Nome Completo"
+            label="Nome"
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            error={error}
+          />
+          <SimpleInput
+            label="Sobrenome"
+            type="text"
+            value={surname}
+            onChange={(event) => setSurname(event.target.value)}
           />
           <SimpleInput
             label="Email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            // error={"email inválido"}
           />
           <SimpleInput
             label="Senha"
@@ -133,12 +141,11 @@ export function SignUp() {
             error={error}
           />
           <S.ErrorMessageContainer>
-            <S.ErrorMessage error={false}>
-              Ops, usuário ou senha inválidos. <br /> Tente novamente!
-            </S.ErrorMessage>
+            <S.ErrorMessage>{error}</S.ErrorMessage>
           </S.ErrorMessageContainer>
-          <Button type="submit">Continuar</Button>
+          <Button type="submit">Cadastrar</Button>
         </S.Form>
+        <S.GoBackButton onClick={handleGoBack}>Voltar</S.GoBackButton>
       </S.ContainerLeft>
       <S.ContainerRight>
         <img src={logoCompass} alt="" />

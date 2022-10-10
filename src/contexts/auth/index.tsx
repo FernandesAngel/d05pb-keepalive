@@ -1,3 +1,4 @@
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import {
   createContext,
   ReactNode,
@@ -6,9 +7,13 @@ import {
   useEffect,
   useState,
 } from "react";
+import { auth, db } from "../../firebase";
+// import firebase from "firebase/compat/app";
 
 interface UserProps {
-  email: string;
+  email: string | null | undefined;
+  name: string;
+  surname: string;
 }
 
 export interface CredentialProps {
@@ -24,8 +29,10 @@ interface AuthState {
 interface AuthContextData {
   data: AuthState;
   authError: boolean;
+  signUpError: string;
   signIn: (credentials: CredentialProps) => Promise<void>;
   signOut: () => void;
+  signUp: (credentials: CredentialProps, user: UserProps) => Promise<void>;
 }
 
 interface AuthProps {
@@ -37,6 +44,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 function AuthProvider({ children }: AuthProps) {
   const [data, setData] = useState({} as AuthState);
   const [authError, setAuthError] = useState(false);
+  const [signUpError, setSignUpError] = useState("");
 
   useEffect(() => {
     function loadStorageData(): void {
@@ -53,11 +61,28 @@ function AuthProvider({ children }: AuthProps) {
   }, []);
 
   const signIn = useCallback(async (credentials: CredentialProps) => {
+    let getUsername = "";
+    let getUserSurname = "";
     try {
-      // chamada api
+      const { user } = await auth.signInWithEmailAndPassword(
+        credentials.email,
+        credentials.password
+      );
+
+      const getUserQuery = query(
+        collection(db, "users"),
+        where("email", "==", user?.email)
+      );
+      const querySnapshot = await getDocs(getUserQuery);
+      querySnapshot.forEach((doc) => {
+        getUsername = doc.data().name;
+        getUserSurname = doc.data().surname;
+      });
       const result = {
         user: {
-          email: credentials.email,
+          email: user?.email,
+          name: getUsername,
+          surname: getUserSurname,
         },
         isLogged: true,
       };
@@ -73,6 +98,28 @@ function AuthProvider({ children }: AuthProps) {
     }
   }, []);
 
+  const signUp = useCallback(
+    async (credentials: CredentialProps, user: UserProps) => {
+      try {
+        setSignUpError("");
+        const response = await auth.createUserWithEmailAndPassword(
+          credentials.email,
+          credentials.password
+        );
+        const docRef = await addDoc(collection(db, "users"), {
+          email: response.user?.email,
+          name: user.name,
+        });
+        console.log("Document written with ID: ", docRef);
+        console.log("Cadastrado com sucesso");
+      } catch (e) {
+        setSignUpError("Conta já existente");
+        console.log("erroou", e);
+      }
+    },
+    []
+  );
+
   const signOut = useCallback(() => {
     localStorage.removeItem(import.meta.env.VITE_LOCAL_STORAGE_KEY);
     setData({} as AuthState);
@@ -84,6 +131,8 @@ function AuthProvider({ children }: AuthProps) {
         data,
         signIn,
         signOut,
+        signUp,
+        signUpError,
         authError,
       }}
     >

@@ -4,7 +4,7 @@ import { Timer } from "../Timer";
 import * as S from "./styles";
 
 export function Footer() {
-  const { signOut } = useAuth();
+  const { signOut, data } = useAuth();
 
   function handleLogout(
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -16,6 +16,10 @@ export function Footer() {
     <S.Container>
       <S.Content>
         <S.ContentLeft>
+          <S.WelcomeMessage>
+            Bem-vindo(a), <br />
+            <b>{data.user.name}</b>
+          </S.WelcomeMessage>
           <p>
             Essa janela do navegador é usada para manter sua sessão de
             autenticação ativa. Deixe-a <br /> aberta em segundo plano e abra
