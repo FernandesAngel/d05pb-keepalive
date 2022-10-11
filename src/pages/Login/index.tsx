@@ -61,7 +61,8 @@ export function Login() {
               (errors.email !== undefined &&
                 errors.email.message !== undefined) ||
               (errors.password !== undefined &&
-                errors.password.message !== undefined)
+                errors.password.message !== undefined) ||
+              authError
             }
             {...register("email")}
           />
@@ -73,13 +74,16 @@ export function Login() {
               (errors.email !== undefined &&
                 errors.email.message !== undefined) ||
               (errors.password !== undefined &&
-                errors.password.message !== undefined)
+                errors.password.message !== undefined) ||
+              authError
             }
             {...register("password")}
           />
           <S.ErrorMessageContainer>
             {authError && (
-              <S.ErrorMessage error={true}>Erro ao logar</S.ErrorMessage>
+              <S.ErrorMessage error={true}>
+                Ops, usuário ou senha inválidos. <br /> Tente novamente!
+              </S.ErrorMessage>
             )}
             {errors.email ? (
               <S.ErrorMessage error={true}>

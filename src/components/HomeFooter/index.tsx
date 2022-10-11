@@ -37,7 +37,7 @@ export function Footer() {
         </S.ContentRight>
       </S.Content>
       <S.Navigation>
-        <S.NavigateButton href="https://www.google.com" target="_blank">
+        <S.NavigateButton href="https://compass.uol/en/home/" target="_blank">
           Continuar <br /> Navegando
         </S.NavigateButton>
         <S.LogoutButton onClick={(event) => handleLogout(event)}>
