@@ -71,7 +71,7 @@ export const ContentLeft = styled.div`
 export const WelcomeMessage = styled.h5`
   width: 35%;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 15px;
   padding-left: 20px;
 

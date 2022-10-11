@@ -55,10 +55,13 @@ export function Login() {
           <h2>Login</h2>
           <Input
             variant="user"
-            label="Usuário"
+            label="Email"
             type="text"
             error={
-              errors.email !== undefined && errors.email.message !== undefined
+              (errors.email !== undefined &&
+                errors.email.message !== undefined) ||
+              (errors.password !== undefined &&
+                errors.password.message !== undefined)
             }
             {...register("email")}
           />
@@ -67,8 +70,10 @@ export function Login() {
             label="Senha"
             type="password"
             error={
-              errors.password !== undefined &&
-              errors.password.message !== undefined
+              (errors.email !== undefined &&
+                errors.email.message !== undefined) ||
+              (errors.password !== undefined &&
+                errors.password.message !== undefined)
             }
             {...register("password")}
           />
@@ -87,9 +92,7 @@ export function Login() {
             ) : null}
           </S.ErrorMessageContainer>
           <S.FormButtonContainer>
-            <Button disabled={loading} type="submit">
-              {loading ? "Carregando..." : "Continuar"}
-            </Button>
+            <Button loading={loading} type="submit" title="Continuar" />
           </S.FormButtonContainer>
         </S.Form>
         <S.SignUpButton onClick={handleNavigation}>

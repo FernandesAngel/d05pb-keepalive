@@ -15,9 +15,7 @@ export function Temperature() {
           setLat(position.coords.latitude);
           setLong(position.coords.longitude);
         });
-      } catch (error) {
-        console.log("deu errado", error);
-      }
+      } catch (error) {}
     }
   }
 
@@ -32,9 +30,7 @@ lat=${lat}&lon=${long}&appid=${
         const data = await apiCall.json();
         setLocal(data.name);
         setTemp(data.main.temp.toFixed(0));
-      } catch (error) {
-        console.log("erro", error);
-      }
+      } catch (error) {}
     }
     getWeather();
   }, [lat, long]);

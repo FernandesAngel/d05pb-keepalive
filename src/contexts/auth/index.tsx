@@ -13,7 +13,6 @@ import { auth, db } from "../../firebase";
 interface UserProps {
   email: string | null | undefined;
   name: string;
-  surname: string;
 }
 
 export interface CredentialProps {
@@ -31,7 +30,8 @@ interface AuthContextData {
   authError: boolean;
   signIn: (credentials: CredentialProps) => Promise<void>;
   signOut: () => void;
-  signUp: (credentials: CredentialProps, user: UserProps) => Promise<void>;
+  signUp: (credentials: CredentialProps, user: UserProps) => Promise<boolean>;
+  signUpError: string;
   loading: boolean;
 }
 
@@ -44,6 +44,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 function AuthProvider({ children }: AuthProps) {
   const [data, setData] = useState({} as AuthState);
   const [authError, setAuthError] = useState(false);
+  const [signUpError, setSignUpError] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -62,7 +63,6 @@ function AuthProvider({ children }: AuthProps) {
 
   const signIn = useCallback(async (credentials: CredentialProps) => {
     let getUsername = "";
-    let getUserSurname = "";
     setLoading(true);
     try {
       const { user } = await auth.signInWithEmailAndPassword(
@@ -77,13 +77,11 @@ function AuthProvider({ children }: AuthProps) {
       const querySnapshot = await getDocs(getUserQuery);
       querySnapshot.forEach((doc) => {
         getUsername = doc.data().name;
-        getUserSurname = doc.data().surname;
       });
       const result = {
         user: {
           email: user?.email,
           name: getUsername,
-          surname: getUserSurname,
         },
         isLogged: true,
       };
@@ -95,7 +93,6 @@ function AuthProvider({ children }: AuthProps) {
       setAuthError(false);
     } catch (error) {
       setAuthError(true);
-      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -109,15 +106,17 @@ function AuthProvider({ children }: AuthProps) {
           credentials.email,
           credentials.password
         );
-        const docRef = await addDoc(collection(db, "users"), {
+        await addDoc(collection(db, "users"), {
           email: response.user?.email,
           name: user.name,
-          surname: user.surname,
         });
-        console.log("Document written with ID: ", docRef);
-        console.log("Cadastrado com sucesso");
+        setSignUpError("");
+        return true;
       } catch (e) {
-        console.log("erroou", e);
+        setSignUpError(
+          "Erro ao cadastrar, verifique suas informações e tente novamente."
+        );
+        return false;
       } finally {
         setLoading(false);
       }
@@ -139,6 +138,7 @@ function AuthProvider({ children }: AuthProps) {
         signUp,
         authError,
         loading,
+        signUpError,
       }}
     >
       {children}

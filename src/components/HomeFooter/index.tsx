@@ -18,12 +18,13 @@ export function Footer() {
         <S.ContentLeft>
           <S.WelcomeMessage>
             Bem-vindo(a), <br />
-            <b>{data.user.name}</b>
+            <b>{data.user.name.split(" ")[0]}</b>
           </S.WelcomeMessage>
           <p>
             Essa janela do navegador é usada para manter sua sessão de
-            autenticação ativa. Deixe-a <br /> aberta em segundo plano e abra
-            uma nova janela para continuar a navegar.
+            autenticação ativa.
+            <br /> Deixe-a aberta em segundo plano e abra uma nova janela para
+            continuar a navegar.
           </p>
         </S.ContentLeft>
         <S.ContentRight>

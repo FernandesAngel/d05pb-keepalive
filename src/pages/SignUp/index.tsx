@@ -19,13 +19,15 @@ import {
 } from "../../utils/validators/password";
 
 const schemaUser = yup.object({
-  name: yup.string().required("Nome Obrigatório"),
-  surname: yup.string().required("Sobrenome obrigatória"),
-  email: yup.string().required("Email obrigatória").email("erro email"),
+  name: yup.string().required("Você precisa preencher seu nome completo."),
+  email: yup
+    .string()
+    .required("O campo de email é obrigatório")
+    .email("Seu email é inválido"),
 
   password: yup
     .string()
-    .required("senha obrigatória")
+    .required("A senha é obrigatória")
     .test("password", "1", (value) => lengthPassword(value || ""))
     .test("password", "2", (value) => specialCaracterePassword(value || ""))
     .test("password", "3", (value) => uppercasePassword(value || ""))
@@ -34,14 +36,13 @@ const schemaUser = yup.object({
 
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref("password"), null], "A senha e a repetição não conferem"),
+    .oneOf([yup.ref("password"), null], "As senhas devem ser iguais."),
 });
 
 const errorsPassword = ["1", "2", "3", "4", "5"];
 
 interface SignUpProps {
   name: string;
-  surname: string;
   email: string;
   password: string;
   passwordConfirmation: string;
@@ -50,7 +51,7 @@ interface SignUpProps {
 export function SignUp() {
   const navigate = useNavigate();
   const [isCaractere, setIsCaractere] = useState("");
-  const { signUp, loading } = useAuth();
+  const { signUp, loading, signUpError } = useAuth();
 
   const {
     register,
@@ -74,15 +75,16 @@ export function SignUp() {
   }, [pass]);
 
   async function handleSignUpSubmit(data: SignUpProps) {
-    console.log(data);
-    const { name, surname, email, password } = data;
+    const { name, email, password } = data;
 
     const userData = {
       email,
       password,
     };
-    await signUp(userData, { name, surname, email });
-    reset();
+    const response = await signUp(userData, { name, email });
+    if (response) {
+      reset();
+    }
   }
 
   return (
@@ -96,8 +98,11 @@ export function SignUp() {
         </S.TitleContainer>
         <S.Form onSubmit={handleSubmit(handleSignUpSubmit)}>
           <h2>Cadastro</h2>
-          <SimpleInput label="Nome" type="text" {...register("name")} />
-          <SimpleInput label="Sobrenome" type="text" {...register("surname")} />
+          <SimpleInput
+            label="Nome Completo"
+            type="text"
+            {...register("name")}
+          />
           <SimpleInput label="Email" type="email" {...register("email")} />
           <SimpleInput
             label="Senha"
@@ -134,12 +139,10 @@ export function SignUp() {
           <S.ErrorMessageContainer>
             {errors.name ? (
               <S.ErrorMessage>{errors.name.message}</S.ErrorMessage>
-            ) : errors.surname ? (
-              <S.ErrorMessage>{errors.surname.message}</S.ErrorMessage>
             ) : errors.email ? (
               <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
             ) : errors.password &&
-              errors.password.message === "senha obrigatória" ? (
+              errors.password.message === "A senha é obrigatória" ? (
               <S.ErrorMessage>A senha é obrigatória</S.ErrorMessage>
             ) : errors.passwordConfirmation ? (
               <S.ErrorMessage>
@@ -147,14 +150,18 @@ export function SignUp() {
               </S.ErrorMessage>
             ) : errors.password &&
               errorsPassword.includes(errors.password.message || "") ? (
-              <S.ErrorMessage>Verifique se a sua senha</S.ErrorMessage>
+              <S.ErrorMessage>
+                Verifique se a sua senha atende a todas as especificações.
+              </S.ErrorMessage>
+            ) : signUpError ? (
+              <S.ErrorMessage>{signUpError}</S.ErrorMessage>
             ) : null}
           </S.ErrorMessageContainer>
-          <Button disabled={loading} type="submit">
-            {loading ? "Carregando..." : "Cadastrar"}
-          </Button>
+          <Button loading={loading} type="submit" title="Cadastrar" />
         </S.Form>
-        <S.GoBackButton onClick={handleGoBack}>Voltar</S.GoBackButton>
+        <S.GoBackButton onClick={handleGoBack}>
+          Já tem uma conta? Faça seu login
+        </S.GoBackButton>
       </S.ContainerLeft>
       <S.ContainerRight>
         <img src={logoCompass} alt="" />

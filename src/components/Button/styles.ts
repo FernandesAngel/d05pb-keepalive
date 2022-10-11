@@ -1,4 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+export function rotationBuilder() {
+  const rotation = keyframes`
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(90deg);
+    }
+    50% {
+      transform: rotate(180deg);
+      opacity: .9
+    }
+    75% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  `;
+  return rotation;
+}
 
 export const Container = styled.div`
   width: 100%;
@@ -16,5 +38,8 @@ export const Container = styled.div`
     filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.5));
     margin-top: 47px;
     cursor: pointer;
+  }
+  .spinner {
+    animation: ${rotationBuilder()} 1s linear infinite;
   }
 `;

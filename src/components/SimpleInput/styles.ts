@@ -17,5 +17,10 @@ export const Container = styled.div`
     color: ${(props) => props.theme.secondary};
     font-size: 1rem;
     outline: none;
+    :-webkit-autofill {
+      background-color: ${(props) => props.theme.primaryText};
+      -webkit-text-fill-color: ${(props) => props.theme.primaryText};
+      transition: background-color 5000s ease-in-out 0s;
+    }
   }
 `;

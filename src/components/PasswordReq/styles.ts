@@ -11,7 +11,7 @@ export const PasswordReq = styled.div<PasswordReqProps>`
   display: flex;
   align-items: center;
   color: ${(props) =>
-    props.check ? props.theme.successText : props.theme.warnText};
+    props.check ? props.theme.successText : props.theme.primaryText};
 `;
 export const PasswordReqText = styled.p`
   font-size: 0.8rem;
