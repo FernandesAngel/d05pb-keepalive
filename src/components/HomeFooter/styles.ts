@@ -38,13 +38,20 @@ export const ContentLeft = styled.div`
     text-align: right;
     margin-right: 35px;
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1360px) {
     p {
-      font-size: 0.7rem;
       margin: 0 20px;
+      width: 70%;
       br {
         display: none;
       }
+    }
+  }
+  @media (max-width: 1060px) {
+    p {
+      font-size: 0.7rem;
+      margin: 0 20px;
+      width: 100%;
     }
   }
 
@@ -72,7 +79,7 @@ export const WelcomeMessage = styled.h5`
   width: 35%;
   font-weight: 400;
   font-size: 1.05rem;
-  line-height: 15px;
+  line-height: 20px;
   padding-left: 20px;
 
   @media (max-width: 1060px) {

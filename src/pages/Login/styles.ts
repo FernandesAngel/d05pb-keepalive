@@ -77,6 +77,15 @@ export const SignUpButton = styled.a`
   color: ${(props) => props.theme.secondary};
   margin-top: 20px;
   cursor: pointer;
+  width: 100%;
+  text-align: center;
+  @media (max-width: 920px) {
+    padding-left: 20px;
+  }
+
+  @media (max-width: 375px) {
+    padding-left: 0;
+  }
 `;
 export const Form = styled.form`
   min-width: 300px;

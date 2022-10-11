@@ -70,6 +70,7 @@ export function SignUp() {
   function handleGoBack() {
     navigate("/");
   }
+
   useEffect(() => {
     setIsCaractere(pass);
   }, [pass]);

@@ -1,4 +1,5 @@
-const specialCaractereRegex = /[!@#$%^&*(),.?":{}|<>_-]/g;
+// const specialCaractereRegex = /[!@#$%^&*(),.?":{}|<>_-]/g;
+const specialCaractereRegex = /(?=.?[#?!@$%^&-])/gm;
 const numberRegex = /\d/;
 const lowercaseRegex = /[a-z]/;
 const uppercaseRegex = /[A-Z]/;

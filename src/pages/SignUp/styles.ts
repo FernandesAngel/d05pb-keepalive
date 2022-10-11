@@ -118,6 +118,8 @@ export const GoBackButton = styled.a`
   color: ${(props) => props.theme.secondary};
   margin-top: 20px;
   cursor: pointer;
+  text-align: center;
+  width: 100%;
 `;
 export const ContainerRight = styled.div`
   width: 50%;
