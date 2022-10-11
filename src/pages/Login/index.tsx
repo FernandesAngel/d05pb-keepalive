@@ -2,29 +2,44 @@ import * as S from "./styles";
 import logoCompass from "../../assets/logoCompass.png";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { FormEvent, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import * as yup from "yup";
+
+const schemaLogin = yup.object({
+  email: yup.string().required("Email obrigatória").email("erro email"),
+
+  password: yup.string().required("senha obrigatória"),
+});
+
+interface LoginProps {
+  email: string;
+  password: string;
+}
 
 export function Login() {
   const navigate = useNavigate();
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const { signIn, authError } = useAuth();
+  const { signIn, loading, authError } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginProps>({
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    resolver: yupResolver(schemaLogin),
+  });
 
   function handleNavigation() {
     navigate("/signup");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    const regEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    event.preventDefault();
-    if (password.length >= 6 && regEmail.test(user)) {
-      signIn({ email: user, password });
-      setError(false);
-    }
-    setError(true);
+  async function handleLoginSubmit(data: LoginProps) {
+    await signIn(data);
   }
 
   return (
@@ -36,31 +51,45 @@ export function Login() {
             Para continuar navegando de forma segura, efetue o login na rede.
           </S.Description>
         </S.TitleContainer>
-        <S.Form onSubmit={handleSubmit}>
+        <S.Form onSubmit={handleSubmit(handleLoginSubmit)}>
           <h2>Login</h2>
           <Input
             variant="user"
             label="Usuário"
             type="text"
-            value={user}
-            onChange={(event) => setUser(event.target.value)}
-            error={error}
+            error={
+              errors.email !== undefined && errors.email.message !== undefined
+            }
+            {...register("email")}
           />
           <Input
             variant="password"
             label="Senha"
             type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            error={error}
+            error={
+              errors.password !== undefined &&
+              errors.password.message !== undefined
+            }
+            {...register("password")}
           />
           <S.ErrorMessageContainer>
-            <S.ErrorMessage error={error || authError}>
-              Ops, usuário ou senha inválidos. <br /> Tente novamente!
-            </S.ErrorMessage>
+            {authError && (
+              <S.ErrorMessage error={true}>Erro ao logar</S.ErrorMessage>
+            )}
+            {errors.email ? (
+              <S.ErrorMessage error={true}>
+                Ops, usuário ou senha inválidos. <br /> Tente novamente!
+              </S.ErrorMessage>
+            ) : errors.password ? (
+              <S.ErrorMessage error={true}>
+                Ops, usuário ou senha inválidos. <br /> Tente novamente!
+              </S.ErrorMessage>
+            ) : null}
           </S.ErrorMessageContainer>
           <S.FormButtonContainer>
-            <Button type="submit">Continuar</Button>
+            <Button disabled={loading} type="submit">
+              {loading ? "Carregando..." : "Continuar"}
+            </Button>
           </S.FormButtonContainer>
         </S.Form>
         <S.SignUpButton onClick={handleNavigation}>

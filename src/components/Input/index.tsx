@@ -1,14 +1,22 @@
 import * as S from "./styles";
 import { AiOutlineUser } from "react-icons/ai";
 import { HiOutlineLockClosed } from "react-icons/hi";
-import { InputHTMLAttributes, useState } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  InputHTMLAttributes,
+  useState,
+} from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   variant?: "user" | "password" | null;
   error: boolean;
 }
-export function Input({ label, error, variant = null, ...rest }: InputProps) {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+  { label, error, variant = null, ...rest }: InputProps,
+  ref
+) => {
   const [focused, setFocused] = useState(false);
   return (
     <S.Container error={error}>
@@ -18,6 +26,7 @@ export function Input({ label, error, variant = null, ...rest }: InputProps) {
         onBlur={(event) =>
           event.target.value.length > 0 ? setFocused(true) : setFocused(false)
         }
+        ref={ref}
         {...rest}
       />
       <S.Icon focused={focused}>
@@ -31,4 +40,6 @@ export function Input({ label, error, variant = null, ...rest }: InputProps) {
       </S.Icon>
     </S.Container>
   );
-}
+};
+
+export const Input = forwardRef(InputBase);

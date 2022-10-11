@@ -1,16 +1,25 @@
 import * as S from "./styles";
-import { InputHTMLAttributes } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  InputHTMLAttributes,
+} from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
 }
-export function SimpleInput({ label, error = "", ...rest }: InputProps) {
+const SimpleInputBase: ForwardRefRenderFunction<
+  HTMLInputElement,
+  InputProps
+> = ({ label, error = "", ...rest }: InputProps, ref) => {
   return (
     <>
       <S.Container>
-        <input placeholder={label} {...rest} />
+        <input ref={ref} placeholder={label} {...rest} />
       </S.Container>
     </>
   );
-}
+};
+
+export const SimpleInput = forwardRef(SimpleInputBase);

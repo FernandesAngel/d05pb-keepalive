@@ -29,10 +29,10 @@ interface AuthState {
 interface AuthContextData {
   data: AuthState;
   authError: boolean;
-  signUpError: string;
   signIn: (credentials: CredentialProps) => Promise<void>;
   signOut: () => void;
   signUp: (credentials: CredentialProps, user: UserProps) => Promise<void>;
+  loading: boolean;
 }
 
 interface AuthProps {
@@ -44,7 +44,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 function AuthProvider({ children }: AuthProps) {
   const [data, setData] = useState({} as AuthState);
   const [authError, setAuthError] = useState(false);
-  const [signUpError, setSignUpError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     function loadStorageData(): void {
@@ -63,6 +63,7 @@ function AuthProvider({ children }: AuthProps) {
   const signIn = useCallback(async (credentials: CredentialProps) => {
     let getUsername = "";
     let getUserSurname = "";
+    setLoading(true);
     try {
       const { user } = await auth.signInWithEmailAndPassword(
         credentials.email,
@@ -95,13 +96,15 @@ function AuthProvider({ children }: AuthProps) {
     } catch (error) {
       setAuthError(true);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   const signUp = useCallback(
     async (credentials: CredentialProps, user: UserProps) => {
+      setLoading(true);
       try {
-        setSignUpError("");
         const response = await auth.createUserWithEmailAndPassword(
           credentials.email,
           credentials.password
@@ -109,12 +112,14 @@ function AuthProvider({ children }: AuthProps) {
         const docRef = await addDoc(collection(db, "users"), {
           email: response.user?.email,
           name: user.name,
+          surname: user.surname,
         });
         console.log("Document written with ID: ", docRef);
         console.log("Cadastrado com sucesso");
       } catch (e) {
-        setSignUpError("Conta já existente");
         console.log("erroou", e);
+      } finally {
+        setLoading(false);
       }
     },
     []
@@ -132,8 +137,8 @@ function AuthProvider({ children }: AuthProps) {
         signIn,
         signOut,
         signUp,
-        signUpError,
         authError,
+        loading,
       }}
     >
       {children}
